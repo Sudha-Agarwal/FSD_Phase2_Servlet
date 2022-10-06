@@ -3,24 +3,25 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import jakarta.servlet.http.Cookie;
+
 /**
- * Servlet implementation class Welcome
+ * Servlet implementation class CookieServletSecond
  */
-@WebServlet("/Welcome")
-public class Welcome extends HttpServlet {
+@WebServlet("/CookieServletSecond")
+public class CookieServletSecond extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Welcome() {
+    public CookieServletSecond() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,39 +30,13 @@ public class Welcome extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html");
 		
+		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
 		
-		String usrname = request.getParameter("username");
-		String password = request.getParameter("password");
+		Cookie ck[] = request.getCookies();
 		
-		//response.sendRedirect("http://www.google.com");
-		
-		
-		if(password.equals("1234") && usrname.equals("Sudha")) {
-			//RequestDispatcher rd = request.getRequestDispatcher("ValidServlet");
-			//rd.forward(request, response);
-			
-			response.sendRedirect("ValidServlet");
-		}
-		
-		else {
-			pw.println("Sorry Username and password donot match");
-			RequestDispatcher rd = request.getRequestDispatcher("/index.html");
-			rd.include(request, response);
-		}
-		
-		pw.close();
-		
-		//pw.println("Welcome " + usrname);
-		
-		
-		
-		
-		
-		
-		
+		pw.println("Hello " + ck[0].getValue());
 	}
 
 	/**
