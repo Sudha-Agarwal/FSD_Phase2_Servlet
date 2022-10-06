@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -43,14 +44,29 @@ public class CookieServletFirst extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 		
 		String username = request.getParameter("username");
+		String password = request.getParameter("password");
 		
-		Cookie ck = new Cookie("uname", username);
-		ck.setMaxAge(5);
-		response.addCookie(ck);
+		if(password.equals("1234") && username.equals("Sudha")) {
+			Cookie ck = new Cookie("uname", username);
+			ck.setMaxAge(15);
+			response.addCookie(ck);
+			response.sendRedirect("CookieServletSecond");
+			
+		}
 		
-		pw.println("<form action = 'CookieServletSecond'>");
-		pw.println("<input type='submit' value='go'>");
-		pw.println("</form>");
+		else {
+			pw.println("Usrname and password donot match");
+			RequestDispatcher rd = request.getRequestDispatcher("/cookieLogin.html");
+			rd.include(request, response);
+			
+		}
+		
+		
+		
+		/*
+		 * pw.println("<form action = 'CookieServletSecond'>");
+		 * pw.println("<input type='submit' value='go'>"); pw.println("</form>");
+		 */
 		
 		
 		

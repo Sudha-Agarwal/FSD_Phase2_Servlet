@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -35,8 +36,27 @@ public class CookieServletSecond extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 		
 		Cookie ck[] = request.getCookies();
+		String usrname = null;
 		
-		pw.println("Hello " + ck[0].getValue());
+		if(ck != null) {
+			for(Cookie cookie: ck) { 
+				if(cookie.getName().equals("uname")) {
+					usrname = cookie.getValue();
+					pw.println("Hello " + usrname);
+				
+				}
+			}
+		}
+		
+		if(usrname == null) {
+			pw.println("Your session has timed out. Please login again");
+			RequestDispatcher rd = request.getRequestDispatcher("cookieLogin.html");
+			rd.include(request, response);
+			//response.sendRedirect("cookieLogin.html");
+			
+		}
+		
+		//pw.println("Hello " + usrname);
 	}
 
 	/**
