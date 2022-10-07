@@ -1,27 +1,23 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Date;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class WelcomeHttpSession
+ * Servlet implementation class ValidateURLRewriting
  */
-@WebServlet("/WelcomeHttpSession")
-public class WelcomeHttpSession extends HttpServlet {
+@WebServlet("/ValidateURLRewriting")
+public class ValidateURLRewriting extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WelcomeHttpSession() {
+    public ValidateURLRewriting() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,7 +26,8 @@ public class WelcomeHttpSession extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.doPost(request, response);
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -39,24 +36,13 @@ public class WelcomeHttpSession extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		
-		PrintWriter pw = response.getWriter();
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
 		
-		HttpSession session = request.getSession(false);	
-		int timeout = 20;
-		if(session != null) {
-			
-			String user = (String)session.getAttribute("user");
-			pw.println("Hello " + user);
-			pw.println("<br>Session Id: " + session.getId());
-			pw.println("<br>Session creation Time: " + new Date(session.getCreationTime()));
-			pw.println("<br>Last Accessed Time " + new Date(session.getLastAccessedTime()));
-			pw.println("<br>Max inactive interval: " + session.getMaxInactiveInterval());
-			session.setMaxInactiveInterval(timeout);
-			
-			response.setHeader("Refresh",timeout + "; URL=timeout.html");
-			
-		}	
 		
+		if(username.equals("Sudha") && password.equals("1234")) {
+			response.sendRedirect("validateURLRewritingSecond?user_name=" + username);
+		}
 	}
 
 }
