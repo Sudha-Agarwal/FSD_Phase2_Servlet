@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -35,6 +37,7 @@ public class ValidateURLRewriting extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
+		PrintWriter pw = response.getWriter();
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -42,6 +45,10 @@ public class ValidateURLRewriting extends HttpServlet {
 		
 		if(username.equals("Sudha") && password.equals("1234")) {
 			response.sendRedirect("validateURLRewritingSecond?user_name=" + username);
+		}
+		else {
+			pw.println("Please login first"); 
+			request.getRequestDispatcher("index.html").include(request, response);
 		}
 	}
 
