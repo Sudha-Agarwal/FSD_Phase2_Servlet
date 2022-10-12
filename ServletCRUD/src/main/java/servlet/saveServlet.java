@@ -40,11 +40,20 @@ public class saveServlet extends HttpServlet {
 		
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
+		String userName = request.getParameter("userName");
+		String password = request.getParameter("password");
+		String address = request.getParameter("address");
+		String contact = request.getParameter("contact");
+		
 		
 		Employee emp = new Employee();
 		
 		emp.setFirstName(firstName);
 		emp.setLastName(lastName);
+		emp.setUserName(userName);
+		emp.setPassword(password);
+		emp.setContact(contact);
+		emp.setAddress(address);
 		
 		EmployeeDAO.registerEmployee(emp);
 		
