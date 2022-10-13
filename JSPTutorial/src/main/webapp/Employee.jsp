@@ -8,16 +8,25 @@
 </head>
 <body>
 
-<jsp:useBean id="emp" class="bean.Employee">
+<jsp:useBean id="emp" class="bean.Employee" scope="request">
+
+<%-- 
 <jsp:setProperty property="id" name="emp" value="1"/>
 <jsp:setProperty property="firstName" name="emp" value="Sudha"/>
+--%>
+
+<jsp:setProperty property="*" name="emp" />
+
 </jsp:useBean>
 
 <p>Employee Details</p>
 
 <p>Emp Id:
 <jsp:getProperty property="id" name="emp"/>
+<jsp:getProperty property="firstName" name="emp"/>
 
+
+<jsp:forward page="index.jsp" />
 </p>
 </body>
 </html>
