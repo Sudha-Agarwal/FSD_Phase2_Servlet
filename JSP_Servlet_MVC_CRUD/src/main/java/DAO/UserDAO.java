@@ -3,6 +3,10 @@ package DAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import bean.User;
 
@@ -25,9 +29,7 @@ public class UserDAO {
 
 	}
 
-	public int insertUser(User user) {
-
-
+	public static int insertUser(User user) {
 		String INSERT_USER_SQL = "INSERT INTO users (name, email, country) values(?,?,?)";
 
 
@@ -52,6 +54,33 @@ public class UserDAO {
 
 		return result;
 
+	}
+	
+	public static List<User> selectAllUsers(){
+		
+		String SELECT_USER_SQL = "select * from users";
+		
+		List<User> users = new ArrayList<User>();
+		
+		try(Connection connection = UserDAO.getConnection();
+		PreparedStatement stmt = connection.prepareStatement(SELECT_USER_SQL)){
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				User user = new User();
+				
+				user.setId(rs.getInt(1));
+				user.setName(rs.getString(2));
+				user.setEmail(rs.getString("email"));
+				user.setCountry(rs.getString("country"));				
+				users.add(user);			
+				
+			}			
+		}
+		catch(SQLException e) {			
+		}
+		
+		return users;
 	}
 
 

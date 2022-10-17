@@ -36,6 +36,7 @@ public class EmployeeDAO {
 		
 		String INSERT_EMP_SQL = "INSERT INTO employee (first_name,last_name,username,password,address,contact) values(?,?,?,?,?,?)";
 		
+		
 		int result = 0;
 		try {
 			Connection connection = EmployeeDAO.getConnection();
@@ -87,7 +88,6 @@ public class EmployeeDAO {
 				
 			}
 			connection.close();
-			
 			
 		}
 		catch(Exception e) {

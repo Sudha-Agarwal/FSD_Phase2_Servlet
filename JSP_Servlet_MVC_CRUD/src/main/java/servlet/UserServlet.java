@@ -1,10 +1,11 @@
 package servlet;
 
 import java.io.IOException;
-
-import bean.User;
+import java.util.List;
 
 import DAO.UserDAO;
+import bean.User;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -53,19 +54,24 @@ public class UserServlet extends HttpServlet {
 		newUser.setEmail(email);
 		newUser.setCountry(country);
 		
-		userDAO.insertUser(newUser);
-		
-		try {
-			response.sendRedirect("user-list.jsp");
-			
+		userDAO.insertUser(newUser);	
+		listUser(request, response);
+	}
+	 
+	 void listUser(HttpServletRequest request, HttpServletResponse response) {
+		 List<User> users = userDAO.selectAllUsers();
+		 
+		 request.setAttribute("listUser", users);
+		 
+		 try {
+			request.getRequestDispatcher("user-list.jsp").forward(request, response);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-	}
+	 }
 
 }

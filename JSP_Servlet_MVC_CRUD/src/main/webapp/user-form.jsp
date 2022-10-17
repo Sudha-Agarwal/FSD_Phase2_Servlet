@@ -7,7 +7,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form>
+<form action="UserServlet" method = "post">
+
+Name: <input type="text" name= "name">
+Email: <input type="text" name="email">
+Country: <input type="text" name="country">
+
+<input type="submit" value="submit">
+
 
 
 </form>

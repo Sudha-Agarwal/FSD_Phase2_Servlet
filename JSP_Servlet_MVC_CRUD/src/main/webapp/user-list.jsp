@@ -22,8 +22,6 @@
 <td><c:out value="${user.country}"/></td>
 
 </c:forEach>
-
 </table>
-
 </body>
 </html>

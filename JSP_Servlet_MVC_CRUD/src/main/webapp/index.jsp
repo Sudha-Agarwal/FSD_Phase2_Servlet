@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<a href="user-form.jsp">Create New User</a>
 </body>
 </html>
