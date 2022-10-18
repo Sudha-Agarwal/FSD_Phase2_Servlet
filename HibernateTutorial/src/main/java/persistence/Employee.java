@@ -1,15 +1,28 @@
 package persistence;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name="employee")
 public class Employee {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@Column(name="first_name")	
@@ -85,5 +98,33 @@ public class Employee {
 
 	@Column(name="contact")	
 	private String contact;
+	
+	
+	@ManyToOne
+	@JoinColumn(name="dept_id")
+	private Department department;
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+	
+	@ManyToMany(cascade = {CascadeType.ALL})
+	@JoinTable(name="employee_meeting",
+		joinColumns = {@JoinColumn(name="employee_id")},
+		inverseJoinColumns = {@JoinColumn(name="meeting_id")})
+	private Set<Meeting> meetings = new HashSet<Meeting>();
+
+	public Set<Meeting> getMeetings() {
+		return meetings;
+	}
+
+	public void setMeetings(Set<Meeting> meetings) {
+		this.meetings = meetings;
+	}
+
 
 }
